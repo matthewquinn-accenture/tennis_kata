@@ -12,14 +12,13 @@ class Game
      }
   end
 
-
   def score
     if check_winner?
-      player_winner
+      player_leading + " wins"
     elsif isDeuce?
       "deuce"
     elsif check_advantage?
-       player_advantage
+       player_leading + " advantage"
     elsif check_tie?
       player_tie
     else
@@ -28,24 +27,29 @@ class Game
   end
 
   private
+
   def isDeuce?
-    @player1 >= 3 && (@player1 == @player2)
+    @player1 >= 3 && check_tie?
   end
 
   def check_advantage?
-    @player1 >= 3 && @player2 >= 3 && (@player1 - @player2).abs == 1
+    had_deuce? && (score_difference == 1)
   end
 
-  def player_advantage
-    @player1 > @player2 ? "Player 1 advantage" : "Player 2 advantage"
+  def had_deuce?
+    @player1 >= 3 && @player2 >= 3
+  end
+
+  def player_leading
+    @player1 < @player2 ? "Player 2" : "Player 1"
   end
 
   def check_winner?
-    (@player1 > 3 || @player2 > 3) && ((@player1 - @player2).abs >= 2)
+    (scored_enough?(@player1) || scored_enough?(@player2)) && (score_difference >= 2)
   end
 
-  def player_winner
-    @player1 < @player2 ? "Player 2 wins" : "Player 1 wins"
+  def scored_enough?(player)
+    player > 3
   end
 
   def check_tie?
@@ -60,4 +64,7 @@ class Game
     @possible_scores[@player1] + " - " + @possible_scores[@player2]
   end
 
+  def score_difference
+     (@player1 - @player2).abs
+  end
 end
