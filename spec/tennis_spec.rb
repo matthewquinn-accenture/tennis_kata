@@ -57,9 +57,22 @@ describe "Tennis scoring game" do
     expect(@tennis_game.score).to eq("Player 2 advantage")
   end
 
-  it "Player Two Scored 4 times and Player One Scored 2 times" do
+  it "Player Two Scored 7 times and Player One Scored 5 times" do
     @tennis_game.player1 = 5
     @tennis_game.player2 = 7
     expect(@tennis_game.score).to eq("Player 2 wins")
   end
+
+  it "Player One Scored 4 times and Player Two Scored 1 times" do
+    @tennis_game.player1 = 4
+    @tennis_game.player2 = 1
+    expect(@tennis_game.score).to eq("Player 1 wins")
+  end
+
+  it "Player One Scored 4 times and Player Two Scored 2 times" do
+    @tennis_game.player1 = 4
+    @tennis_game.player2 = 2
+    expect(@tennis_game.score).to eq("Player 1 wins")
+  end
+
 end
